@@ -1,0 +1,15 @@
+{
+  "name": "HostsFileEdit",
+  "version": "0.1.0",
+  "description": "This app helps you to edit your hosts file with a minimalist UI",
+  "author": {
+    "name": "LouWii",
+    "email": ""
+  },
+  "license": "MIT",
+  "main": "javascripts/main/index.js",
+  "dependencies": {
+    "bootstrap": "3.x",
+    "sudo-prompt": "latest"
+  }
+}

@@ -1,0 +1,108 @@
+body {
+  font-family: -apple-system, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.message {
+  display: none;
+  position: absolute;
+  width: 500px;
+  height: 250px;
+  top: 50%;
+  left: 50%;
+  color: #777;
+  font-weight: 200;
+  text-align: center;
+  margin-top: -125px;
+  margin-left: -250px;
+}
+
+.message h1 {
+  font-size: 50px;
+  font-weight: 100;
+  color: #333;
+}
+
+.message div {
+  margin-bottom: 10px;
+}
+
+.header {
+  padding: 1px 0;
+  margin-bottom: 10px;
+  background: #192e40;
+  color: #fff;
+}
+
+.header h1 {
+  text-align: center;
+  margin: 15px 0;
+}
+
+#hosts {
+  margin-bottom: 15px;
+}
+#hosts ul {
+  list-style: none;
+  padding: 0;
+}
+
+#hosts ul li {
+  margin-bottom: 15px;
+}
+
+.btn-rows-action {
+  
+}
+
+.btn-save-hosts .text-saving, .btn-save-hosts .text-saved {
+  display: none;
+}
+.btn-save-hosts .glyphicon::before {
+  content: "\e175";
+}
+
+.btn-save-hosts.saving {
+  cursor: default;
+  opacity: .7;
+}
+.btn-save-hosts.saving:hover {
+  background: #337ab7;
+}
+.btn-save-hosts.saving .glyphicon {
+  animation-name: spin;
+  animation-duration: 2000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+.btn-save-hosts.saving .glyphicon::before {
+  content: "\e019";
+}
+.btn-save-hosts.saving .text, .btn-save-hosts.saving .text-saved {
+  display: none;
+}
+.btn-save-hosts.saving .text-saving {
+  display: inline;
+}
+
+.btn-save-hosts.saved {
+  cursor: default;
+}
+.btn-save-hosts.saved .glyphicon::before {
+  content: "\e013";
+}
+.btn-save-hosts.saved .text, .btn-save-hosts.saved .text-saving {
+  display: none;
+}
+.btn-save-hosts.saved .text-saved {
+  display: inline;
+}
+
+.app-actions {
+  text-align: right;
+}
+
+
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}

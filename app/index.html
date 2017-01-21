@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="stylesheets/application.css" />
+
+  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+  <script src="node_modules/jquery/dist/jquery.min.js" type="text/javascript"></script>
+  <script>if (window.module) module = window.module;</script>
+  
+  <script src="javascripts/renderer/application.js" type="text/javascript"></script>
+</head>
+<body>
+  <div class="message">
+    <div id="details"></div>
+    <small id="versions"></small>
+  </div>
+  <div class="header">
+    <h1 id="title"></h1>
+  </div>
+  <div class="container">
+    <div id="hosts">
+      <p></p>
+      <ul>
+        
+      </ul>
+      <div class="btn-group btn-rows-action" role="group" aria-label="...">
+        <button type="button" class="btn btn-default btn-sm btn-add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+        <button type="button" class="btn btn-default btn-sm btn-remove"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+      </div>
+    </div>
+    <div class="app-actions">
+      <button id="load-hosts" class="btn btn-primary">Load <em>Hosts</em> file</button>
+      <button class="btn btn-primary btn-save-hosts">
+        <span class="glyphicon"></span> 
+        <span class="text-state text">Save <em>hosts</em> file</span>
+        <span class="text-state text-saving">Saving...</span>
+        <span class="text-state text-saved">Saved !</span>
+      </button>
+    </div>
+  </div>
+</body>
+</html>
