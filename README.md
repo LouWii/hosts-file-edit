@@ -1,6 +1,6 @@
-# HostsManager
+# HostsFileEdit
 
-> My HostsManager app built with Electron
+HostsFileEdit is a small app that helps you edit your OS hosts file through a nice, minimalist UI.
 
 
 ## Dev
