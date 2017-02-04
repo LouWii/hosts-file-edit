@@ -34,7 +34,7 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
     localStorage.setItem(appHostsSettingIdx, JSON.stringify(appHosts));
   }
 
-  function computeHostsFileString()
+  function computeHostsFileStringOld()
   {
     let hostsFileString = hostsDelimiterStart+'\\n';
     appHosts.hosts.forEach((host, hostIndex) => {
@@ -47,41 +47,6 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
     return hostsFileString;
   }
 
-  function createHostInputElement(hostId, hostString)
-  {
-    let li = document.createElement('li');
-    let group = document.createElement('div');
-    group.classList.add('input-group');
-    let input = document.createElement('input');
-    input.setAttribute('type', 'text');
-    input.setAttribute('data-id', hostId);
-    input.setAttribute('value', hostString);
-    input.classList.add('form-control', 'input-host');
-    ['change', 'keyup', 'cut', 'paste'].forEach(event => input.addEventListener(event, liveSaveSettingsEvent));
-    let groupBtn = document.createElement('span');
-    groupBtn.classList.add('input-group-btn');
-    let btnRemove = document.createElement('button');
-    btnRemove.setAttribute('type', 'button');
-    btnRemove.setAttribute('data-id', hostId);
-    btnRemove.classList.add('btn', 'btn-default');
-    btnRemove.addEventListener('click', deleteRowEvent);
-    let btnRemoveIcon = document.createElement('span');
-    btnRemoveIcon.classList.add('glyphicon', 'glyphicon-remove');
-    btnRemove.appendChild(btnRemoveIcon);
-    groupBtn.appendChild(btnRemove);
-    group.appendChild(input);
-    group.appendChild(groupBtn);
-    li.appendChild(group);
-
-    return li;
-  }
-
-  function showHostsList(appHosts) {
-    appHosts.forEach((host, hostIndex) => {
-      const li = createHostInputElement(hostIndex, host.str);
-      document.querySelector('#hosts ul').appendChild(li);
-    });
-  }
 
   function udpateHostsList(appHosts) {
     const list = document.querySelector('#hosts ul');
@@ -173,24 +138,20 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
     });
   });
 
-  document.querySelector(".btn-add").addEventListener('click', function(event) {
-    event.preventDefault();
-    appHosts.hosts.push({str: '', active: true});
-    saveSettings();
-    const li = createHostInputElement((appHosts.hosts.length - 1), '');
-    document.querySelector('#hosts ul').appendChild(li);
-  });
-
-  document.querySelector('.btn-remove').addEventListener('click', function(event) {
-    event.preventDefault();
-    appHosts.hosts.pop();
-    saveSettings();
-    document.querySelector('#hosts ul li:last-child').remove();
-  });
-
   document.getElementById('title').innerHTML = data.appName + ' App';
-  loadSettings();
+  // loadSettings();
 
+  function computeHostsFileString(hosts) {
+    let hostsFileString = hostsDelimiterStart+'\\n';
+    hosts.forEach((host, hostIndex) => {
+      if (host.active) {
+        hostsFileString += host.str+'\\n';
+      }
+    });
+    hostsFileString += hostsDelimiterEnd+'\\n';
+    console.log(hostsFileString);
+    return hostsFileString;
+  }
 
   var app = new Vue({
     el: '#app',
@@ -199,7 +160,8 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
         { str: '127.0.0.1 ', active: true },
         { str: ' ', active: false }
       ],
-      savingIntoFile : false
+      savingIntoFile: false,
+      savingIntoFileState: 0
     },
     beforeMount: function() {
       const jsonHosts = localStorage.getItem(settingsHostsIdx);
@@ -227,29 +189,38 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
         if (this.savingIntoFile){ return; }
         this.savingIntoFile = true;
         const timeStart = performance.now();
-        const cmd = "bash -c \""+sedDelete+";"+"sed -i '$ a\\"+this.computeHostsFileString()+"' " + hostsFilePath+"\"";
+        const cmd = "bash -c \""+sedDelete+";"+"sed -i '$ a\\"+computeHostsFileString(this.hosts)+"' " + hostsFilePath+"\"";
         const parent = this;
         sudo.exec(cmd, options, function(error, stdout, stderr) {
           if (!error){
             const timeEnd = performance.now();
             parent.savingIntoFile = false;
+            parent.savingIntoFileState = 1;
+            setTimeout(function(){
+              parent.savingIntoFileState = 0;
+            }, 1500);
           } else {
             console.error(error);
             console.log(stderr);
             parent.savingIntoFile = false;
+            parent.savingIntoFileState = -1;
+            setTimeout(function(){
+              parent.savingIntoFileState = 0;
+            }, 1500);
           }
         });
+      }
+    },
+    computed: {
+      saveIntoFileButtonClass: function() {
+        return {
+          saving: this.savingIntoFile,
+          saved: this.savingIntoFileState == 1,
+          error: this.savingIntoFileState == -1
+        }
       },
-      computeHostsFileString: function() {
-        let hostsFileString = hostsDelimiterStart+'\\n';
-        this.hosts.forEach((host, hostIndex) => {
-          if (host.active) {
-            hostsFileString += host.str+'\\n';
-          }
-        });
-        hostsFileString += hostsDelimiterEnd+'\\n';
-        console.log(hostsFileString);
-        return hostsFileString;
+      saveIntoFileButtonDisabled: function() {
+        return this.savingIntoFile || this.savingIntoFileState != 0
       }
     },
     watch: {

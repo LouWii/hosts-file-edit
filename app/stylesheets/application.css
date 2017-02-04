@@ -54,17 +54,13 @@ body {
   
 }
 
-.btn-save-hosts .text-saving, .btn-save-hosts .text-saved {
+.btn-save-hosts .text-saving, .btn-save-hosts .text-saved, .btn-save-hosts .text-error {
   display: none;
 }
 .btn-save-hosts .glyphicon::before {
   content: "\e175";
 }
 
-.btn-save-hosts.saving {
-  cursor: default;
-  opacity: .7;
-}
 .btn-save-hosts.saving:hover {
   background: #337ab7;
 }
@@ -84,16 +80,23 @@ body {
   display: inline;
 }
 
-.btn-save-hosts.saved {
-  cursor: default;
-}
 .btn-save-hosts.saved .glyphicon::before {
   content: "\e013";
 }
-.btn-save-hosts.saved .text, .btn-save-hosts.saved .text-saving {
+.btn-save-hosts.saved .text {
   display: none;
 }
 .btn-save-hosts.saved .text-saved {
+  display: inline;
+}
+
+.btn-save-hosts.error .glyphicon::before {
+  content: "\e101";
+}
+.btn-save-hosts.error .text {
+  display: none;
+}
+.btn-save-hosts.error .text-error {
   display: inline;
 }
 
