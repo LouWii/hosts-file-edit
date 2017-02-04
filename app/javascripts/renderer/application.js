@@ -198,7 +198,8 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
       hosts: [
         { str: '127.0.0.1 ', active: true },
         { str: ' ', active: false }
-      ]
+      ],
+      savingIntoFile : false
     },
     beforeMount: function() {
       const jsonHosts = localStorage.getItem(settingsHostsIdx);
@@ -221,6 +222,32 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
       },
       saveHostsSettings: function() {
         localStorage.setItem(settingsHostsIdx, JSON.stringify(this.hosts));
+      },
+      saveHostsFile: function() {
+        if (this.savingIntoFile){ return; }
+        this.savingIntoFile = true;
+        const timeStart = performance.now();
+        const cmd = "bash -c \""+sedDelete+";"+"sed -i '$ a\\"+this.computeHostsFileString()+"' " + hostsFilePath+"\"";
+        sudo.exec(cmd, options, function(error, stdout, stderr) {
+          if (!error){
+            const timeEnd = performance.now();
+            this.savingIntoFile = false;
+          } else {
+            console.error(error);
+            console.log(stderr);
+          }
+        });
+      },
+      computeHostsFileString: function() {
+        let hostsFileString = hostsDelimiterStart+'\\n';
+        this.hosts.forEach((host, hostIndex) => {
+          if (host.active) {
+            hostsFileString += host.str+'\\n';
+          }
+        });
+        hostsFileString += hostsDelimiterEnd+'\\n';
+        console.log(hostsFileString);
+        return hostsFileString;
       }
     },
     watch: {

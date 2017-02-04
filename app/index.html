@@ -53,7 +53,16 @@
     <div class="btn-group btn-rows-action" role="group" aria-label="...">
       <button type="button" class="btn btn-default btn-sm btn-add" v-on:click="addHost" ><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
       <button type="button" class="btn btn-default btn-sm btn-remove" v-on:click="removeHost" ><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
-      </div>
+    </div>
+    <div class="app-actions">
+      <button class="btn btn-primary">Load <em>Hosts</em> file</button>
+      <button class="btn btn-primary btn-save-hosts" v-bind:class="{ saving: savingIntoFile }" v-on:click="saveHostsFile" >
+        <span class="glyphicon"></span> 
+        <span class="text-state text">Save <em>hosts</em> file</span>
+        <span class="text-state text-saving">Saving...</span>
+        <span class="text-state text-saved">Saved !</span>
+      </button>
+    </div>
   </div>
 </body>
 </html>
