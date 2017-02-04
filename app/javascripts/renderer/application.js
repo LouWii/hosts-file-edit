@@ -228,13 +228,15 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
         this.savingIntoFile = true;
         const timeStart = performance.now();
         const cmd = "bash -c \""+sedDelete+";"+"sed -i '$ a\\"+this.computeHostsFileString()+"' " + hostsFilePath+"\"";
+        const parent = this;
         sudo.exec(cmd, options, function(error, stdout, stderr) {
           if (!error){
             const timeEnd = performance.now();
-            this.savingIntoFile = false;
+            parent.savingIntoFile = false;
           } else {
             console.error(error);
             console.log(stderr);
+            parent.savingIntoFile = false;
           }
         });
       },
