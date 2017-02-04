@@ -205,17 +205,19 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
       if (jsonHosts) {
         this.hosts = JSON.parse(jsonHosts);
       } else {
-        
+
       }
     },
     methods: {
       addHost: function(event) {
-        event.preventDefault();
         this.hosts.push({ str: '', active: false });
       },
       removeHost: function(event) {
-        event.preventDefault();
         this.hosts.pop();
+      },
+      activateHost: function(host) {
+        host.active = !host.active;
+        this.saveHostsSettings();
       },
       saveHostsSettings: function() {
         localStorage.setItem(settingsHostsIdx, JSON.stringify(this.hosts));

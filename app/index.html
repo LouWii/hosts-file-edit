@@ -47,7 +47,7 @@
         <div class="input-group">
           <input class="form-control" type="text" v-model="host.str" />
           <span class="input-group-btn">
-            <button type="button" class="btn" v-on:click="host.active = !host.active" v-bind:class="{'btn-success': host.active, 'btn-default': !host.active}" >
+            <button type="button" class="btn" v-on:click="activateHost(host)" v-bind:class="{'btn-success': host.active, 'btn-default': !host.active}" >
               <span class="glyphicon" v-bind:class="{'glyphicon-ok-circle': host.active, 'glyphicon-ban-circle': !host.active}" ></span>
             </button>
             <button type="button" v-bind:data-id="index" class="btn btn-default">
