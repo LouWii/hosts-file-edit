@@ -4,6 +4,7 @@ const json = require('../../package.json');
 const electron = require('electron');
 const Menu = electron.Menu;
 
+// add relevant items in menu https://github.com/electron/electron/blob/master/docs/api/menu.md
 const menuTemplate = [
   
 ];
