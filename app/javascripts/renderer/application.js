@@ -9,6 +9,7 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
   };
   const uiAnimSavedDuration = 2000;
   const appHostsSettingIdx = 'hosts';
+  const settingsHostsIdx = 'hostsSettings';
   const hostsFilePath = '/etc/hosts';
   const hostsDelimiterStart = '# ----- HostsManager config - Do not delete -----';
   const hostsDelimiterEnd   = '# -----      HostsManager config - End      -----';
@@ -199,6 +200,14 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
         { str: ' ', active: false }
       ]
     },
+    beforeMount: function() {
+      const jsonHosts = localStorage.getItem(settingsHostsIdx);
+      if (jsonHosts) {
+        this.hosts = JSON.parse(jsonHosts);
+      } else {
+        
+      }
+    },
     methods: {
       addHost: function(event) {
         event.preventDefault();
@@ -207,6 +216,14 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
       removeHost: function(event) {
         event.preventDefault();
         this.hosts.pop();
+      },
+      saveHostsSettings: function() {
+        localStorage.setItem(settingsHostsIdx, JSON.stringify(this.hosts));
+      }
+    },
+    watch: {
+      hosts: function(newHosts) {
+        this.saveHostsSettings();
       }
     }
   });
