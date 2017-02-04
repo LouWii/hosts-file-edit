@@ -109,20 +109,20 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
     udpateHostsList(appHosts.hosts);
   }
 
-  document.querySelector('#load-hosts').addEventListener('click', function(e){
-    sudo.exec('cat '+hostsFilePath, options, function(error, stdout, stderr) {
-      //$('#hosts > p').html(stdout);
-      if ((m = regex.exec(stdout)) !== null) {
-        if (m.length == 2) {
-          const configLines = m[1].split('\n');
-          configLines.forEach((line, lineIndex) => {
-            console.log(line);
-          });
-          // showHostsList(configLines);
-        }
-      }
-    });
-  });
+  // document.querySelector('#load-hosts').addEventListener('click', function(e){
+  //   sudo.exec('cat '+hostsFilePath, options, function(error, stdout, stderr) {
+  //     //$('#hosts > p').html(stdout);
+  //     if ((m = regex.exec(stdout)) !== null) {
+  //       if (m.length == 2) {
+  //         const configLines = m[1].split('\n');
+  //         configLines.forEach((line, lineIndex) => {
+  //           console.log(line);
+  //         });
+  //         // showHostsList(configLines);
+  //       }
+  //     }
+  //   });
+  // });
 
   document.querySelector('.btn-save-hosts').addEventListener('click', function(event){
     const timeStart = performance.now();
