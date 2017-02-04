@@ -189,4 +189,25 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
 
   document.getElementById('title').innerHTML = data.appName + ' App';
   loadSettings();
+
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+      hosts: [
+        { str: '127.0.0.1 ', active: true },
+        { str: ' ', active: false }
+      ]
+    },
+    methods: {
+      addHost: function(event) {
+        event.preventDefault();
+        this.hosts.push({ str: '', active: false });
+      },
+      removeHost: function(event) {
+        event.preventDefault();
+        this.hosts.pop();
+      }
+    }
+  });
 });

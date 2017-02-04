@@ -41,12 +41,12 @@ body {
 #hosts {
   margin-bottom: 15px;
 }
-#hosts ul {
+.hosts-list {
   list-style: none;
   padding: 0;
 }
 
-#hosts ul li {
+.hosts-list li {
   margin-bottom: 15px;
 }
 

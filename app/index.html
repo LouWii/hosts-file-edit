@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="stylesheets/application.css" />
 
   <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
-  <script src="node_modules/jquery/dist/jquery.min.js" type="text/javascript"></script>
+  <script src="node_modules/vue/dist/vue.min.js" type="text/javascript"></script>
   <script>if (window.module) module = window.module;</script>
   
   <script src="javascripts/renderer/application.js" type="text/javascript"></script>
@@ -23,7 +23,7 @@
   <div class="container">
     <div id="hosts">
       <p></p>
-      <ul>
+      <ul class="hosts-list">
         
       </ul>
       <div class="btn-group btn-rows-action" role="group" aria-label="...">
@@ -40,6 +40,27 @@
         <span class="text-state text-saved">Saved !</span>
       </button>
     </div>
+  </div>
+  <div id="app" class="container">
+    <ul class="hosts-list">
+      <li v-for="(host, index) in hosts">
+        <div class="input-group">
+          <input class="form-control" type="text" v-model="host.str" />
+          <span class="input-group-btn">
+            <button type="button" class="btn" v-on:click="host.active = !host.active" v-bind:class="{'btn-success': host.active, 'btn-default': !host.active}" >
+              <span class="glyphicon" v-bind:class="{'glyphicon-ok-circle': host.active, 'glyphicon-ban-circle': !host.active}" ></span>
+            </button>
+            <button type="button" v-bind:data-id="index" class="btn btn-default">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+          </span>
+        </div>
+      </li>
+    </ul>
+    <div class="btn-group btn-rows-action" role="group" aria-label="...">
+      <button type="button" class="btn btn-default btn-sm btn-add" v-on:click="addHost" ><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
+      <button type="button" class="btn btn-default btn-sm btn-remove" v-on:click="removeHost" ><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+      </div>
   </div>
 </body>
 </html>
