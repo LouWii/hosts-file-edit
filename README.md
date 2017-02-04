@@ -10,11 +10,20 @@ Tested on Linux Ubuntu
 * Make it compatible with Windows
 * Create and add app icon
 
+## Get your machine ready
+
+Be sure to have an installed node version quite recent (~=>6). Get the latest version of npm `sudo npm install npm -g`.
+
+Install [bozon](https://github.com/railsware/bozon) `sudo npm install -g bozon`.
+
 ## Dev
 
 ```
 $ npm install
+$ cd app
+$ npm install
 ```
+
 
 ### Run
 
