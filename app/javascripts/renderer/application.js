@@ -8,7 +8,6 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
     //icns: '/Applications/Electron.app/Contents/Resources/Electron.icns', // (optional)
   };
   const uiAnimSavedDuration = 2000;
-  const appHostsSettingIdx = 'hosts';
   const settingsHostsIdx = 'hostsSettings';
   const hostsFilePath = '/etc/hosts';
   const hostsDelimiterStart = '# ----- HostsManager config - Do not delete -----';
@@ -16,63 +15,6 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
   const regex = /(?:# ----- HostsManager config - Do not delete -----\n)([\s\S]*)(?:# -----      HostsManager config - End      -----\n?)/g;
   const sedDelete = "sed -i '/"+hostsDelimiterStart+"/,/"+hostsDelimiterEnd+"\\n/d' "+hostsFilePath;
   const appHostsJson = localStorage.getItem(appHostsSettingIdx);
-  let appHosts = null;
-
-  function loadSettings()
-  {
-    if (appHostsJson) {
-      appHosts = JSON.parse(appHostsJson);
-      showHostsList(appHosts.hosts);
-    } else {
-      appHosts = { hosts: [] };
-      saveSettings();
-    }
-  }
-
-  function saveSettings()
-  {
-    localStorage.setItem(appHostsSettingIdx, JSON.stringify(appHosts));
-  }
-
-  function computeHostsFileStringOld()
-  {
-    let hostsFileString = hostsDelimiterStart+'\\n';
-    appHosts.hosts.forEach((host, hostIndex) => {
-      if (host.active) {
-        hostsFileString += host.str+'\\n';
-      }
-    });
-    hostsFileString += hostsDelimiterEnd+'\\n';
-
-    return hostsFileString;
-  }
-
-
-  function udpateHostsList(appHosts) {
-    const list = document.querySelector('#hosts ul');
-    while (list.firstChild) {
-      list.removeChild(list.firstChild);
-    }
-    showHostsList(appHosts);
-  }
-
-  function liveSaveSettingsEvent(event) {
-    const hostId = parseInt(event.target.getAttribute('data-id'));
-    appHosts.hosts[hostId].str = event.target.value;
-    saveSettings();
-  }
-
-  function deleteRowEvent(event) {
-    let btn = event.target;
-    if (event.target.classList.contains('glyphicon')) {
-      btn = event.target.parentElement;
-    }
-    const hostId = parseInt(event.target.getAttribute('data-id'));
-    appHosts.hosts.splice(hostId, 1);
-    saveSettings();
-    event.target.parentElement.parentElement.parentElement.remove();
-    udpateHostsList(appHosts.hosts);
-  }
 
   // document.querySelector('#load-hosts').addEventListener('click', function(e){
   //   sudo.exec('cat '+hostsFilePath, options, function(error, stdout, stderr) {
@@ -89,57 +31,7 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
   //   });
   // });
 
-  document.querySelector('.btn-save-hosts').addEventListener('click', function(event){
-    const timeStart = performance.now();
-    let button = event.target;
-    if (button.classList.contains('text-state') || button.classList.contains('glyphicon')) {
-      button = button.parentElement;
-    } else if (button.tagName == 'EM') {
-      button = button.parentElement.parentElement;
-    }
-    console.log(button);
-    button.classList.add('saving');
-    const cmd = "bash -c \""+sedDelete+";"+"sed -i '$ a\\"+computeHostsFileString()+"' " + hostsFilePath+"\"";
-    sudo.exec(cmd, options, function(error, stdout, stderr) {
-      if (!error){
-        // const fileContent = computeHostsFileString();
-        // const fileUpdateCmd = 'echo "'+fileContent+'" | tee -a '+hostsFilePath;
-        // const fileUpdateCmd = "sed -i '$ a\\"+fileContent+"' " + hostsFilePath;
-        // sudo.exec(fileUpdateCmd, options, function(error, stdout, stderr) {
-        //   if (!error){
-
-        //   } else {
-        //     console.error(error);
-        //     console.log(stderr);
-        //   }
-        // });
-        const timeEnd = performance.now();
-        if (timeEnd - timeStart < 1000) {
-          setTimeout(function(){
-            button.classList.remove('saving');
-            button.classList.add('saved');
-          }, 1000 - (timeEnd - timeStart));
-          setTimeout(function(){
-            button.classList.remove('saved');
-          }, uiAnimSavedDuration + (1000 - (timeEnd - timeStart)));
-        } else {
-          button.classList.remove('saving');
-          button.classList.add('saved');
-          setTimeout(function(){
-            button.classList.remove('saved');
-          }, uiAnimSavedDuration);
-        }
-      } else {
-        button.classList.remove('saving');
-        button.classList.add('error');
-        console.error(error);
-        console.log(stderr);
-      }
-    });
-  });
-
   document.getElementById('title').innerHTML = data.appName + ' App';
-  // loadSettings();
 
   function computeHostsFileString(hosts) {
     let hostsFileString = hostsDelimiterStart+'\\n';
