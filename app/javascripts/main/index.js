@@ -1,9 +1,12 @@
-var electron, path, json;
+const path = require('path');
+const json = require('../../package.json');
 
-path = require('path');
-json = require('../../package.json');
+const electron = require('electron');
+const Menu = electron.Menu;
 
-electron = require('electron');
+const menuTemplate = [
+  
+];
 
 electron.app.on('ready', function() {
   var window;
@@ -14,6 +17,9 @@ electron.app.on('ready', function() {
     height: json.settings.height
   });
 
+  const menu = Menu.buildFromTemplate(menuTemplate);
+  Menu.setApplicationMenu(menu);
+
   window.loadURL('file://' + path.join(__dirname, '..', '..') + '/index.html');
 
   window.webContents.on('did-finish-load', function(){
@@ -21,7 +27,8 @@ electron.app.on('ready', function() {
       appName: json.name,
       electronVersion: process.versions.electron,
       nodeVersion: process.versions.node,
-      chromiumVersion: process.versions.chrome
+      chromiumVersion: process.versions.chrome,
+      platform: process.platform
     });
   });
 
