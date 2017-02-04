@@ -14,7 +14,6 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
   const hostsDelimiterEnd   = '# -----      HostsManager config - End      -----';
   const regex = /(?:# ----- HostsManager config - Do not delete -----\n)([\s\S]*)(?:# -----      HostsManager config - End      -----\n?)/g;
   const sedDelete = "sed -i '/"+hostsDelimiterStart+"/,/"+hostsDelimiterEnd+"\\n/d' "+hostsFilePath;
-  const appHostsJson = localStorage.getItem(appHostsSettingIdx);
 
   // document.querySelector('#load-hosts').addEventListener('click', function(e){
   //   sudo.exec('cat '+hostsFilePath, options, function(error, stdout, stderr) {
