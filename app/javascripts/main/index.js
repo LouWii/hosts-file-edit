@@ -8,7 +8,26 @@ const Menu = electron.Menu;
 // https://github.com/electron/electron/blob/master/docs/api/menu.md
 // https://github.com/electron/electron/blob/master/docs/api/menu-item.md
 const menuTemplate = [
-  
+  {
+    role: 'window',
+    submenu: [
+      {
+        role: 'minimize'
+      },
+      {
+        role: 'close'
+      }
+    ]
+  },
+  {
+    role: 'help',
+    submenu: [
+      {
+        label: 'Learn More',
+        click () { require('electron').shell.openExternal('https://github.com/LouWii/hosts-file-edit') }
+      }
+    ]
+  }
 ];
 
 electron.app.on('ready', function() {
