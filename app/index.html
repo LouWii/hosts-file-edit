@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="stylesheets/application.css" />
 
   <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
-  <script src="node_modules/jquery/dist/jquery.min.js" type="text/javascript"></script>
+  <script src="node_modules/vue/dist/vue.min.js" type="text/javascript"></script>
   <script>if (window.module) module = window.module;</script>
   
   <script src="javascripts/renderer/application.js" type="text/javascript"></script>
@@ -20,24 +20,37 @@
   <div class="header">
     <h1 id="title"></h1>
   </div>
-  <div class="container">
-    <div id="hosts">
-      <p></p>
-      <ul>
-        
-      </ul>
-      <div class="btn-group btn-rows-action" role="group" aria-label="...">
-        <button type="button" class="btn btn-default btn-sm btn-add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-        <button type="button" class="btn btn-default btn-sm btn-remove"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
-      </div>
+  <div id="app" class="container">
+    <ul class="hosts-list">
+      <li v-for="(host, index) in hosts">
+        <div class="input-group">
+          <input class="form-control" type="text" v-model="host.str" />
+          <span class="input-group-btn">
+            <button type="button" class="btn" v-on:click="activateHost(host)" v-bind:class="{'btn-success': host.active, 'btn-default': !host.active}" >
+              <span class="glyphicon" v-bind:class="{'glyphicon-ok-circle': host.active, 'glyphicon-ban-circle': !host.active}" ></span>
+            </button>
+            <button type="button" v-bind:data-id="index" v-on:click="removeHostAt(index)" class="btn btn-default">
+              <span class="glyphicon glyphicon-trash"></span>
+            </button>
+          </span>
+        </div>
+      </li>
+    </ul>
+    <div class="btn-group btn-rows-action" role="group" aria-label="...">
+      <button type="button" class="btn btn-default btn-sm btn-add" v-on:click="addHost" >
+        <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>
+      </button>
+      <button type="button" class="btn btn-default btn-sm btn-remove" v-on:click="removeLastHost" >
+        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+      </button>
     </div>
     <div class="app-actions">
-      <button id="load-hosts" class="btn btn-primary">Load <em>Hosts</em> file</button>
-      <button class="btn btn-primary btn-save-hosts">
+      <button class="btn btn-primary btn-save-hosts" v-bind:disabled="saveIntoFileButtonDisabled" v-bind:class="saveIntoFileButtonClass" v-on:click="saveHostsFile" >
         <span class="glyphicon"></span> 
         <span class="text-state text">Save <em>hosts</em> file</span>
         <span class="text-state text-saving">Saving...</span>
         <span class="text-state text-saved">Saved !</span>
+        <span class="text-state text-error">Error</span>
       </button>
     </div>
   </div>

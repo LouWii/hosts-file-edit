@@ -10,6 +10,7 @@
   "main": "javascripts/main/index.js",
   "dependencies": {
     "bootstrap": "3.x",
-    "sudo-prompt": "latest"
+    "sudo-prompt": "latest",
+    "vue": "2.x"
   }
 }
