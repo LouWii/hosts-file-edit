@@ -69,6 +69,9 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
       removeLastHost: function(event) {
         this.hosts.pop();
       },
+      removeHostAt: function(index) {
+        this.hosts.splice(index, 1);
+      },
       activateHost: function(host) {
         host.active = !host.active;
         this.saveHostsSettings();
