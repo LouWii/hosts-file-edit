@@ -42,8 +42,12 @@
       </li>
     </ul>
     <div class="btn-group btn-rows-action" role="group" aria-label="...">
-      <button type="button" class="btn btn-default btn-sm btn-add" v-on:click="addHost" ><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
-      <button type="button" class="btn btn-default btn-sm btn-remove" v-on:click="removeHost" ><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+      <button type="button" class="btn btn-default btn-sm btn-add" v-on:click="addHost" >
+        <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>
+      </button>
+      <button type="button" class="btn btn-default btn-sm btn-remove" v-on:click="removeLastHost" >
+        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+      </button>
     </div>
     <div class="app-actions">
       <button class="btn btn-primary">Load <em>Hosts</em> file</button>
