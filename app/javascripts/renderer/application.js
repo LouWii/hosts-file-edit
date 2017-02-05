@@ -1,6 +1,4 @@
 require('electron').ipcRenderer.on('loaded' , function(event, data) {
-  document.getElementById('details').innerHTML = 'built with Electron v' + data.electronVersion;
-  document.getElementById('versions').innerHTML = 'running on Node v' + data.nodeVersion + ' and Chromium v' + data.chromiumVersion;
 
   const sudo = require('sudo-prompt');
   const options = {
