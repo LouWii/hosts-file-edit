@@ -132,9 +132,16 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
                 alert("An error ocurred reading the file :" + err.message);
                 return;
               }
-              const hosts = JSON.parse(data);
+              try {
+                const hosts = JSON.parse(data);
+              }
+              catch (e) {
+                alert("This file doesn't contain valid JSON.");
+              }
               if (Array.isArray(hosts)) {
                 parent.hosts = hosts;
+              } else {
+                alert("This file doesn't contain valid data.");
               }
             });
           }
