@@ -49,7 +49,9 @@ electron.app.on('ready', function() {
   window = new electron.BrowserWindow({
     title: json.name,
     width: json.settings.width,
-    height: json.settings.height
+    height: json.settings.height,
+    minWidth: json.settings.minWidth,
+    minHeight: json.settings.minHeight
   });
 
   const menu = Menu.buildFromTemplate(menuTemplate);
