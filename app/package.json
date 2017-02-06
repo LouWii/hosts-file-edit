@@ -11,6 +11,7 @@
   "dependencies": {
     "bootstrap": "3.x",
     "sudo-prompt": "latest",
-    "vue": "2.x"
+    "vue": "2.x",
+    "jquery": "1.x"
   }
 }
