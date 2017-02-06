@@ -16,7 +16,20 @@ const menuTemplate = [
       },
       {
         role: 'close'
-      }
+      },
+      {
+        label: 'Toggle Developer Tools',
+        accelerator: (function() {
+          if (process.platform == 'darwin')
+            return 'Alt+Command+I';
+          else
+            return 'Ctrl+Shift+I';
+        })(),
+        click: function(item, focusedWindow) {
+          if (focusedWindow)
+            focusedWindow.toggleDevTools();
+        }
+      },
     ]
   },
   {
@@ -36,7 +49,9 @@ electron.app.on('ready', function() {
   window = new electron.BrowserWindow({
     title: json.name,
     width: json.settings.width,
-    height: json.settings.height
+    height: json.settings.height,
+    minWidth: json.settings.minWidth,
+    minHeight: json.settings.minHeight
   });
 
   const menu = Menu.buildFromTemplate(menuTemplate);

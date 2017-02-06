@@ -7,7 +7,6 @@ Tested on Linux Ubuntu
 ## Todo
 
 * Test on OSX
-* Import/Export list of hosts
 * Make it compatible with Windows
 * Create and add app icon
 

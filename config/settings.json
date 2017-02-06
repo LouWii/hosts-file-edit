@@ -1,4 +1,6 @@
 {
   "width": 600,
-  "height": 400
+  "height": 400,
+  "minWidth": 300,
+  "minHeight": 170
 }

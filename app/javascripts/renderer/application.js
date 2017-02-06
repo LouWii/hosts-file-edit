@@ -1,6 +1,9 @@
 require('electron').ipcRenderer.on('loaded' , function(event, data) {
 
   const sudo = require('sudo-prompt');
+  const fs = require('fs');
+  const remote = require('electron').remote; 
+  const dialog = remote.dialog;
   const options = {
     name: 'HostsManager',
     //icns: '/Applications/Electron.app/Contents/Resources/Electron.icns', // (optional)
@@ -99,6 +102,48 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
             setTimeout(function(){
               parent.savingIntoFileState = 0;
             }, 1500);
+          }
+        });
+      },
+      exportHostsList: function(event) {
+        const content = JSON.stringify(this.hosts);
+        dialog.showSaveDialog(function (fileName) {
+          if (fileName === undefined){
+            //console.log("You didn't save the file");
+            return;
+          }
+          fs.writeFile(fileName, content, function (err) {
+            if(err){
+              alert("An error ocurred creating the file "+ err.message)
+            }
+            alert("The file has been succesfully saved");
+          });
+        });
+      },
+      importHostsList: function(event) {
+        const parent = this;
+        dialog.showOpenDialog(function (fileNames) {
+          // fileNames is an array that contains all the selected
+          if(fileNames === undefined){
+            console.log("No file selected");
+          }else{
+            fs.readFile(fileNames[0], 'utf-8', function (err, data) {
+              if(err){
+                alert("An error ocurred reading the file :" + err.message);
+                return;
+              }
+              try {
+                const hosts = JSON.parse(data);
+              }
+              catch (e) {
+                alert("This file doesn't contain valid JSON.");
+              }
+              if (Array.isArray(hosts)) {
+                parent.hosts = hosts;
+              } else {
+                alert("This file doesn't contain valid data.");
+              }
+            });
           }
         });
       }

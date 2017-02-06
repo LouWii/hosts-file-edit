@@ -2,30 +2,6 @@ body {
   font-family: -apple-system, "Helvetica Neue", Helvetica, sans-serif;
 }
 
-.message {
-  display: none;
-  position: absolute;
-  width: 500px;
-  height: 250px;
-  top: 50%;
-  left: 50%;
-  color: #777;
-  font-weight: 200;
-  text-align: center;
-  margin-top: -125px;
-  margin-left: -250px;
-}
-
-.message h1 {
-  font-size: 50px;
-  font-weight: 100;
-  color: #333;
-}
-
-.message div {
-  margin-bottom: 10px;
-}
-
 .header {
   padding: 1px 0;
   margin-bottom: 10px;
@@ -38,9 +14,11 @@ body {
   margin: 15px 0;
 }
 
-#hosts {
+.app-actions {
+  text-align: right;
   margin-bottom: 15px;
 }
+
 .hosts-list {
   list-style: none;
   padding: 0;
@@ -50,15 +28,11 @@ body {
   margin-bottom: 15px;
 }
 
-.btn-rows-action {
-  
-}
-
 .btn-save-hosts .text-saving, .btn-save-hosts .text-saved, .btn-save-hosts .text-error {
   display: none;
 }
 .btn-save-hosts .glyphicon::before {
-  content: "\e175";
+  content: "\e202";
 }
 
 .btn-save-hosts.saving:hover {
@@ -99,11 +73,6 @@ body {
 .btn-save-hosts.error .text-error {
   display: inline;
 }
-
-.app-actions {
-  text-align: right;
-}
-
 
 @keyframes spin {
     from {transform:rotate(0deg);}
