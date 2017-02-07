@@ -33,23 +33,38 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
 
   document.getElementById('title').innerHTML = data.appName + ' App';
 
-  function computeHostsFileString(hosts) {
-    let hostsFileString = hostsDelimiterStart+'\\n';
-    hosts.forEach((host, hostIndex) => {
-      if (host.active) {
-        hostsFileString += host.str+'\\n';
+  function getHostsUpdateCommand(platform, hosts) {
+      if (data.platform == 'linux') {
+        const sedDelete = "sed -i '/" + hostsDelimiterStart + "/,/" + hostsDelimiterEnd + "\\n/d' " + hostsFilePath;
+        let sedUpdate = "sed -i '$ a\\" + hostsDelimiterStart+'\\n';
+        hosts.forEach((host, hostIndex) => {
+          if (host.active) {
+            sedUpdate += host.str+'\\n';
+          }
+        });
+        sedUpdate += hostsDelimiterEnd+'\\n';
+        sedUpdate += "' " + hostsFilePath + "\"";
+        const cmd = "bash -c \"" + sedDelete + ";" + sedUpdate + "\"";
+        return cmd;
+      } else if (data.platform == 'darwin') {
+        const sedDelete = "sed -i -e '/" + hostsDelimiterStart + "/,/" + hostsDelimiterEnd + "\\n/d' " + hostsFilePath;
+        let sedUpdate = "sed -i '' '$ a\\'$'\n''" + hostsDelimiterStart + "' " + hostsFilePath;
+        hosts.forEach((host, hostIndex) => {
+          if (host.active) {
+            sedUpdate += " && sed -i '' '$ a\\'$'\n''" + host.str + "' " + hostsFilePath;
+          }
+        });
+        sedUpdate += " && sed -i '' '$ a\\'$'\n''" + hostsDelimiterEnd + "' " + hostsFilePath;
+        const cmd = "" + sedDelete + " && " + sedUpdate + "";
+        return cmd;
       }
-    });
-    hostsFileString += hostsDelimiterEnd+'\\n';
-    console.log(hostsFileString);
-    return hostsFileString;
   }
 
   var app = new Vue({
     el: '#app',
     data: {
       hosts: [
-        { str: '127.0.0.1 ', active: true },
+        { str: '127.0.0.1 test.dev', active: true },
         { str: ' ', active: false }
       ],
       savingIntoFile: false,
@@ -84,7 +99,7 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
         if (this.savingIntoFile){ return; }
         this.savingIntoFile = true;
         const timeStart = performance.now();
-        const cmd = "bash -c \""+sedDelete+";"+"sed -i '$ a\\"+computeHostsFileString(this.hosts)+"' " + hostsFilePath+"\"";
+        const cmd = getHostsUpdateCommand(data.platform, this.hosts);
         const parent = this;
         sudo.exec(cmd, options, function(error, stdout, stderr) {
           if (!error){
@@ -97,6 +112,7 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
           } else {
             console.error(error);
             console.log(stderr);
+
             parent.savingIntoFile = false;
             parent.savingIntoFileState = -1;
             setTimeout(function(){
