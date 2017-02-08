@@ -44,10 +44,10 @@
         <div class="input-group">
           <input class="form-control" type="text" v-model="host.str" />
           <span class="input-group-btn">
-            <button type="button" class="btn" v-on:click="activateHost(host)" v-bind:class="{'btn-success': host.active, 'btn-default': !host.active}" >
+            <button type="button" class="btn" v-on:click="activateHost(host)" v-bind:class="{'btn-success': host.active, 'btn-default': !host.active}" v-bind:title="host.active ? 'Active' : 'Inactive'" >
               <span class="glyphicon" v-bind:class="{'glyphicon-ok-circle': host.active, 'glyphicon-ban-circle': !host.active}" ></span>
             </button>
-            <button type="button" v-bind:data-id="index" v-on:click="removeHostAt(index)" class="btn btn-default">
+            <button type="button" v-bind:data-id="index" v-on:click="removeHostAt(index)" class="btn btn-default" title="Delete">
               <span class="glyphicon glyphicon-trash"></span>
             </button>
           </span>
