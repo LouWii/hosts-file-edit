@@ -2,7 +2,7 @@
   "name": "HostsFileEdit",
   "version": "0.1.0",
   "description": "Easily edit your hosts file",
-  "repository": "",
+  "repository": "https://github.com/LouWii/hosts-file-edit",
   "scripts": {
     "postinstall": "install-app-deps"
   },
@@ -17,11 +17,11 @@
   },
   "build": {
     "appId": "com.electron.hostsfileedit",
-    "category": "your.app.category.type",
     "win": {
       "iconUrl": "https://github.com/railsware/bozon/blob/master/lib/templates/images/electron.ico?raw=true"
     },
     "mac": {
+      "category": "public.app-category.developer-tools",
       "icon": "resources/icon.icns",
       "target": "dmg"
     }
