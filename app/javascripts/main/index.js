@@ -7,7 +7,7 @@ const Menu = electron.Menu;
 // add relevant items in menu
 // https://github.com/electron/electron/blob/master/docs/api/menu.md
 // https://github.com/electron/electron/blob/master/docs/api/menu-item.md
-const menuTemplate = [
+let menuTemplate = [
   {
     label: 'Edit',
     submenu: [
@@ -74,6 +74,43 @@ const menuTemplate = [
     ]
   }
 ];
+
+if (process.platform === 'darwin') {
+  menuTemplate.unshift({
+    label: json.name,
+    submenu: [
+      {
+        role: 'about'
+      },
+      {
+        type: 'separator'
+      },
+      {
+        role: 'services',
+        submenu: []
+      },
+      {
+        type: 'separator'
+      },
+      {
+        role: 'hide'
+      },
+      {
+        role: 'hideothers'
+      },
+      {
+        role: 'unhide'
+      },
+      {
+        type: 'separator'
+      },
+      {
+        role: 'quit'
+      }
+    ]
+  });
+
+}
 
 electron.app.on('ready', function() {
   var window;
