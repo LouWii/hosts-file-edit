@@ -43,8 +43,8 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
           }
         });
         sedUpdate += hostsDelimiterEnd+'\\n';
-        sedUpdate += "' " + hostsFilePath + "\"";
-        const cmd = "bash -c \"" + sedDelete + ";" + sedUpdate + "\"";
+        sedUpdate += "' " + hostsFilePath;
+        const cmd = "bash -c \"" + sedDelete + "; " + sedUpdate + "\"";
         return cmd;
       } else if (data.platform == 'darwin') {
         const sedDelete = "sed -i -e '/" + hostsDelimiterStart + "/,/" + hostsDelimiterEnd + "\\n/d' " + hostsFilePath;
@@ -55,7 +55,7 @@ require('electron').ipcRenderer.on('loaded' , function(event, data) {
           }
         });
         sedUpdate += " && sed -i '' '$ a\\'$'\n''" + hostsDelimiterEnd + "' " + hostsFilePath;
-        const cmd = "" + sedDelete + " && " + sedUpdate + "";
+        const cmd = "" + sedDelete + " && " + sedUpdate;
         return cmd;
       }
   }
