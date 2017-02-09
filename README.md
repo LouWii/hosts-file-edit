@@ -34,11 +34,12 @@ $ bozon start
 ### Package
 
 ```
-$ bozon package
+$ bozon package [linux, mac]
 ```
 
-Builds the app for OS X, Linux, and Windows, using [electron-builder](https://github.com/electron-userland/electron-builder).
+Builds the app for OS X, Linux, using [electron-builder](https://github.com/electron-userland/electron-builder).
 
+I had to install `graphicsmagick` and `icnsutils` on my Linux distrib in order to generate the Linux packages.
 
 ## License
 
