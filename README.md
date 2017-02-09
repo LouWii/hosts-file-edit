@@ -6,9 +6,8 @@ Tested on Linux Ubuntu
 
 ## Todo
 
-* Test on OSX
+* Create Linux and OSX packages for 1st release
 * Make it compatible with Windows
-* Create and add app icon
 
 ## Get your machine ready
 
