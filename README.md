@@ -6,15 +6,23 @@ Tested on Linux Ubuntu
 
 ## Todo
 
-* Test on OSX
+* Create Linux and OSX packages for 1st release
 * Make it compatible with Windows
-* Create and add app icon
+
+## Get your machine ready
+
+Be sure to have an installed node version quite recent (~=>6). Get the latest version of npm `sudo npm install npm -g`.
+
+Install [bozon](https://github.com/railsware/bozon) `sudo npm install -g bozon`.
 
 ## Dev
 
 ```
 $ npm install
+$ cd app
+$ npm install
 ```
+
 
 ### Run
 
@@ -25,11 +33,12 @@ $ bozon start
 ### Package
 
 ```
-$ bozon package
+$ bozon package [linux, mac]
 ```
 
-Builds the app for OS X, Linux, and Windows, using [electron-builder](https://github.com/electron-userland/electron-builder).
+Builds the app for OS X, Linux, using [electron-builder](https://github.com/electron-userland/electron-builder).
 
+I had to install `graphicsmagick` and `icnsutils` on my Linux distrib in order to generate the Linux packages.
 
 ## License
 
