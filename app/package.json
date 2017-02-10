@@ -1,10 +1,10 @@
 {
   "name": "HostsFileEdit",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "This app helps you to edit your hosts file with a minimalist UI",
   "author": {
     "name": "LouWii",
-    "email": ""
+    "email": "me@louwii.fr"
   },
   "license": "MIT",
   "main": "javascripts/main/index.js",

@@ -1,7 +1,7 @@
 {
   "name": "HostsFileEdit",
-  "version": "0.1.0",
-  "description": "Easily edit your hosts file",
+  "version": "1.0.0",
+  "description": "This app helps you to edit your hosts file with a minimalist UI",
   "repository": "https://github.com/LouWii/hosts-file-edit",
   "scripts": {
     "postinstall": "install-app-deps"
