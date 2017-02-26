@@ -11,7 +11,7 @@ HostsFileEdit is a small app that helps you edit your OS hosts file through a ni
 
 Tested on Linux Ubuntu and OSX.
 
-![hostsfileedit-screenshot](https://cloud.githubusercontent.com/assets/2750789/23343015/26effac8-fc19-11e6-9f9d-6e1b48a0b63b.png)
+![hostsfileedit-screenshot](https://cloud.githubusercontent.com/assets/2750789/23343075/66ead872-fc1a-11e6-87cc-be2649be8032.png)
 
 ## Todo
 
