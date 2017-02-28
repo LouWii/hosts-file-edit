@@ -15,7 +15,6 @@ Tested on Linux Ubuntu and OSX.
 
 ## Todo
 
-* Create Linux and OSX packages for 1st release
 * Make it compatible with Windows
 
 ## Get your machine ready
