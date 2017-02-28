@@ -17,20 +17,21 @@ Tested on Linux Ubuntu and OSX.
 
 * Make it compatible with Windows
 
-## Get your machine ready
+## Dev
 
-Be sure to have an installed node version quite recent (~=>6). Get the latest version of npm `sudo npm install npm -g`.
+### Get your machine ready
+
+Be sure to have an installed node version quite recent (=>5). Get the latest version of npm `sudo npm install npm -g`.
 
 Install [bozon](https://github.com/railsware/bozon) `sudo npm install -g bozon`.
 
-## Dev
+### Install app dependencies
 
 ```
 $ npm install
 $ cd app
 $ npm install
 ```
-
 
 ### Run
 
