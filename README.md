@@ -16,6 +16,7 @@ Tested on Linux Ubuntu and OSX.
 ## Todo
 
 * Make it compatible with Windows
+* Add tests
 
 ## Dev
 
