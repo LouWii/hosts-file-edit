@@ -6,9 +6,8 @@ Tested on Linux Ubuntu
 
 ## Todo
 
-* Test on OSX
+* Create Linux and OSX packages for 1st release
 * Make it compatible with Windows
-* Create and add app icon
 
 ## Get your machine ready
 
@@ -34,12 +33,13 @@ $ bozon start
 ### Package
 
 ```
-$ bozon package
+$ bozon package [linux, mac]
 ```
 
-Builds the app for OS X, Linux, and Windows, using [electron-builder](https://github.com/electron-userland/electron-builder).
+Builds the app for OS X, Linux, using [electron-builder](https://github.com/electron-userland/electron-builder).
 
+I had to install `graphicsmagick`, `rpm` and `icnsutils` on my Linux distrib in order to generate the Linux packages.
 
 ## License
 
-The MIT License (MIT) © LouWii 2017
+The MIT License (MIT) © LouWii 2018
