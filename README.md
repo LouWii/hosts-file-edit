@@ -1,5 +1,7 @@
 # HostsFileEdit
 
+**Need to update project to use more recent version of Electron**
+
 ![hosts-file-edit-icon-small](https://cloud.githubusercontent.com/assets/2750789/23343095/d04cfeee-fc1a-11e6-9d82-fc79f530689b.png)
 
 HostsFileEdit is a small app that helps you edit your OS hosts file through a nice, minimalist UI.
@@ -12,6 +14,12 @@ HostsFileEdit is a small app that helps you edit your OS hosts file through a ni
 Tested on Linux Ubuntu and OSX.
 
 ![hostsfileedit-screenshot](https://cloud.githubusercontent.com/assets/2750789/23343075/66ead872-fc1a-11e6-87cc-be2649be8032.png)
+
+## Dependencies
+
+On Ubuntu, requires `libgtk2.0-0`, `libgconf-2-4` (or any other v2 version).
+
+**Broken on Ubuntu 20 because using an old version of Electron**
 
 ## Todo
 
